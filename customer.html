@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Database</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+            --border-color: #bdc3c7;
+            --hover-color: #e74c3c;
+            --focus-color: #27ae60;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.4s ease;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+        }
+
+        h1:hover {
+            color: var(--hover-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input[type="text"], 
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, 
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--focus-color);
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.5);
+            transform: scale(1.02);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .shake {
+            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        label {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        label:hover {
+            color: var(--hover-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Database</h1>
+        <form id="customerForm">
+            <section>
+                <h3>Personal Information</h3>
+                <table>
+                    <tr>
+                        <td><input type="text" id="surname" name="surname" placeholder="Surname" required></td>
+                        <td><input type="text" id="firstName" name="firstName" placeholder="First Name" required></td>
+                        <td><input type="text" id="middleInitial" name="middleInitial" placeholder="Middle Initial"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="email" id="email" name="email" placeholder="Email" required></td>
+                        <td><input type="tel" id="phone" name="phone" placeholder="Phone"></td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section>
+                <h3>Address</h3>
+                <table>
+                    <tr>
+                        <td><input type="text" id="street" name="street" placeholder="Street" required></td>
+                        <td><input type="text" id="barangay" name="barangay" placeholder="Barangay" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="city" name="city" placeholder="City" required></td>
+                        <td><input type="text" id="zipCode" name="zipCode" placeholder="ZIP Code" required></td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section>
+                <h3>Select Order</h3>
+                <table>
+                    <tr>
+                        <td><input type="radio" id="product1" name="product" value="Nike Air Max 90" required><label for="product1">Nike Air Max 90</label></td>
+                        <td><input type="radio" id="product2" name="product" value="Adidas Ultraboost"><label for="product2">Adidas Ultraboost</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="product3" name="product" value="Puma RS-X"><label for="product3">Puma RS-X</label></td>
+                        <td><input type="radio" id="product4" name="product" value="Reebok Classic Leather"><label for="product4">Reebok Classic Leather</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="product5" name="product" value="Converse Chuck Taylor"><label for="product5">Converse Chuck Taylor</label></td>
+                        <td><input type="radio" id="product6" name="product" value="Vans Old Skool"><label for="product6">Vans Old Skool</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="product7" name="product" value="New Balance 990"><label for="product7">New Balance 990</label></td>
+                        <td><input type="radio" id="product8" name="product" value="Asics Gel-Lyte III"><label for="product8">Asics Gel-Lyte III</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="product9" name="product" value="Saucony Jazz Original"><label for="product9">Saucony Jazz Original</label></td>
+                        <td><input type="radio" id="product10" name="product" value="Under Armour HOVR Phantom"><label for="product10">Under Armour HOVR Phantom</label></td>
+                    </tr>
+                </table>
+                <h3>Special Interaction</h3>
+                <textarea id="specialInteraction" name="specialInteraction" rows="4" cols="50" placeholder="What do you want to say to the seller?"></textarea>
+            </section>
+            
+            <section>
+                <h3>Delivery Information</h3>
+                <table>
+                    <tr>
+                        <td><input type="date" id="deliveryDate" name="deliveryDate" required></td>
+                        <td><input type="time" id="deliveryTime" name="deliveryTime" required></td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section>
+                <h3>Payment Information</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <div>
+                                <input type="radio" id="creditCardPayment" name="paymentMethod" value="creditCard" required>
+                                <label for="creditCardPayment">Credit Card</label>
+                            </div>
+                            <div id="creditCardFields" style="display: none;">
+                                <table>
+                                    <tr>
+                                        <td><label for="cardNumber">Card Number:</label></td>
+                                        <td><input type="text" id="cardNumber" name="cardNumber" placeholder="Card number" pattern="\d{16}" title="Please enter a valid 16-digit card number"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="cardName">Name on Card:</label></td>
+                                        <td><input type="text" id="cardName" name="cardName" placeholder="Name on card"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="expiryDate">Expiry Date:</label></td>
+                                        <td><input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/\d{2}" title="Please enter a valid expiry date (MM/YY)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="cvv">CVV:</label></td>
+                                        <td><input type="text" id="cvv" name="cvv" placeholder="CVV" pattern="\d{3,4}" title="Please enter a valid 3 or 4 digit CVV"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <input type="radio" id="gcashPayment" name="paymentMethod" value="gcash">
+                                <label for="gcashPayment">GCash</label>
+                            </div>
+                            <div id="gcashFields" style="display: none;">
+                                <table>
+                                    <tr>
+                                        <td><label for="gcashNumber">GCash Number:</label></td>
+                                        <td><input type="tel" id="gcashNumber" name="gcashNumber" placeholder="GCash Number" pattern="\d{11}" title="Please enter a valid 11-digit phone number"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="gcashName">Name on GCash:</label></td>
+                                        <td><input type="text" id="gcashName" name="gcashName" placeholder="Name on GCash"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <input type="radio" id="codPayment" name="paymentMethod" value="cod">
+                                <label for="codPayment">Cash on Delivery</label>
+                            </div>
+                            <div id="codFields" style="display: none;">
+                                <table>
+                                    <tr>
+                                        <td><label for="codAddress">Delivery Address:</label></td>
+                                        <td><input type="text" id="codAddress" name="codAddress" placeholder="Cash on Delivery Address"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="codName">Recipient Name:</label></td>
+                                        <td><input type="text" id="codName" name="codName" placeholder="Recipient Name"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('customerForm');
+            const paymentMethods = document.getElementsByName('paymentMethod');
+            const creditCardFields = document.getElementById('creditCardFields');
+            const gcashFields = document.getElementById('gcashFields');
+            const codFields = document.getElementById('codFields');
+
+            // Show/hide payment fields based on selected payment method
+            paymentMethods.forEach(method => {
+                method.addEventListener('change', function() {
+                    creditCardFields.style.display = this.value === 'creditCard' ? 'block' : 'none';
+                    gcashFields.style.display = this.value === 'gcash' ? 'block' : 'none';
+                    codFields.style.display = this.value === 'cod' ? 'block' : 'none';
+                });
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic form validation
+                if (!form.checkValidity()) {
+                    alert('Please fill out all required fields correctly.');
+                    return;
+                }
+
+                // Collect form data
+                const formData = new FormData(form);
+                const orderData = Object.fromEntries(formData.entries());
+
+                // Here you would typically send the data to a server
+                console.log('Order placed:', orderData);
+                alert('Order placed successfully!');
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>

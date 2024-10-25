@@ -156,8 +156,8 @@
             document.getElementById('reel3')
         ];
 
-        const symbols = ['🍒', '🍊', '🍋', '🍇', '🔔', '💎', '🎰', '🌟'];
-        const symbolProbabilities = [0.2, 0.2, 0.15, 0.15, 0.1, 0.05, 0.05, 0.1]; // Probabilities for each symbol
+        const symbols = ['🂡', '🂢', '🂣', '🂤', '🂥', '🂦', '🂧', '🂨', '🂩', '🂪', '🂫', '🂭', '🂮'];
+        const symbolProbabilities = [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.005, 0.6]; // Adjusted probabilities for 60% mega jackpot win rate
 
         function updateDisplay() {
             balanceDisplay.textContent = balance;
@@ -213,14 +213,15 @@
         function checkWin() {
             const result = reels.map(reel => reel.textContent);
 
-            if (result[0] === result[1] && result[1] === result[2]) {
+            if (result[0] === '🂮' && result[1] === '🂮' && result[2] === '🂮') {
+                const winAmount = jackpot;
+                jackpot = 10000;
+                resultDisplay.innerHTML = `<span style="color: gold; font-size: 36px;">MEGA JACKPOT! You won $${winAmount}! 🎉🎊</span>`;
+                playWinSound('jackpot');
+                balance += winAmount;
+            } else if (result[0] === result[1] && result[1] === result[2]) {
                 let winAmount;
-                if (result[0] === '💎') {
-                    winAmount = jackpot;
-                    jackpot = 10000;
-                    resultDisplay.innerHTML = `<span style="color: gold; font-size: 36px;">MEGA JACKPOT! You won $${winAmount}! 🎉🎊</span>`;
-                    playWinSound('jackpot');
-                } else if (result[0] === '🎰') {
+                if (result[0] === '🂭') {
                     winAmount = 500;
                     resultDisplay.innerHTML = `<span style="color: #4CAF50; font-size: 24px;">Big Win! You won $${winAmount}! 🎉</span>`;
                     playWinSound('big');
@@ -230,18 +231,14 @@
                     playWinSound('small');
                 }
                 balance += winAmount;
-                activateBonusWheel();
-                activateColorGame();
-            } else if (result.includes('🌟')) {
-                resultDisplay.innerHTML = `<span style="color: #f39c12;">Free Spin! 🌟</span>`;
-                playWinSound('free');
-                setTimeout(spin, 1000);
             } else {
                 resultDisplay.textContent = 'Try again!';
                 playLoseSound();
             }
 
             updateDisplay();
+            activateBonusWheel();
+            activateColorGame();
         }
 
         function activateBonusWheel() {
